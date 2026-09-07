@@ -1,0 +1,1 @@
+.alert-card small.red{animation:alert-pulse 1.4s ease-in-out infinite}@keyframes alert-pulse{50%{background:rgb(239 68 68 / .14)}}

@@ -1,0 +1,1 @@
+.ai-panel{position:relative;overflow:hidden}.ai-panel:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 38%,rgb(255 255 255 / .05),transparent 55%);transform:translateX(-110%);animation:ai-sweep 7s ease-in-out infinite}
