@@ -1,1 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>/</loc></url><url><loc>/technology</loc></url><url><loc>/dashboard</loc></url><url><loc>/research</loc></url></urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://earth-net-six.vercel.app/</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/technology</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/intelligence</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/hardware</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/dashboard</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/disasters</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/network</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/research</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/about</loc></url>
+  <url><loc>https://earth-net-six.vercel.app/contact</loc></url>
+</urlset>
