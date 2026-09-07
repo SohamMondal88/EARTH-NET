@@ -1,3 +1,6 @@
+/// <reference types="vite/client" />
+// The UI is intentionally kept in one client entry for this prototype; reusable sections
+// are composed below to keep the interactive demo free of route-level dependencies.
 import React, { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Activity, AlertTriangle, ArrowRight, Atom, Battery, Bell, BrainCircuit, ChevronRight, CircleDot, Cloud, Cpu, Crosshair, Flame, Gauge, Globe2, Menu, Network, Radio, Satellite, ShieldCheck, Signal, Sparkles, Waves, Wind, X, Zap } from 'lucide-react'
