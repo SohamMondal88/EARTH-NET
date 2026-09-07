@@ -1,0 +1,1 @@
+.button:focus-visible,.menu:focus-visible,.simbar button:focus-visible,.sim-buttons button:focus-visible,.dashboard aside button:focus-visible,.detail:focus-visible{outline:2px solid var(--cyan-400);outline-offset:3px}.button:active,.simbar button:active,.sim-buttons button:active{transform:translateY(1px)}
