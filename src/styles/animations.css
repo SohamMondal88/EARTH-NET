@@ -1,0 +1,1 @@
+@keyframes ai-sweep{0%,75%,100%{transform:translateX(-110%)}88%{transform:translateX(110%)}}@keyframes radar{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:no-preference){.section,.page-hero{animation:fade-up .55s ease both}@keyframes fade-up{from{opacity:.01;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}}

@@ -1,0 +1,1 @@
+.hero{position:relative}.hero:before{content:'';position:absolute;width:35rem;height:35rem;right:-18rem;top:2rem;background:radial-gradient(circle,var(--cyan-400),transparent 65%);opacity:.06;filter:blur(20px);pointer-events:none}
