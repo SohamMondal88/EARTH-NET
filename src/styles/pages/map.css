@@ -1,1 +1,145 @@
-.map-legend{backdrop-filter:blur(5px)}
+.india-map {
+  height: 310px;
+  margin-top: 15px;
+  border: 1px solid rgba(31, 96, 112, 0.3);
+  background:
+    radial-gradient(ellipse at 56% 42%, rgba(22, 79, 86, 0.25), transparent 30%),
+    repeating-linear-gradient(0deg, rgba(34, 211, 238, 0.03) 0 1px, transparent 1px 20px),
+    repeating-linear-gradient(90deg, rgba(34, 211, 238, 0.03) 0 1px, transparent 1px 20px);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  isolation: isolate;
+}
+
+.india-map::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(34, 211, 238, 0.1);
+  left: 34%;
+  top: 8%;
+  transform: rotate(45deg);
+  clip-path: polygon(42% 0, 72% 25%, 100% 47%, 68% 100%, 38% 80%, 0 50%, 20% 25%);
+  pointer-events: none;
+}
+
+.india-map::after {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(from 0deg, transparent, rgba(34, 211, 238, 0.05), transparent 18%);
+  animation: radar 7s linear infinite;
+  pointer-events: none;
+}
+
+.india-map p {
+  position: absolute;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--cyan-200);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  font-weight: 600;
+}
+
+.india-map p:nth-last-child(3) {
+  left: 58%;
+  top: 47%;
+}
+.india-map p:nth-last-child(2) {
+  left: 42%;
+  top: 28%;
+}
+.india-map p:nth-last-child(1) {
+  left: 36%;
+  top: 50%;
+}
+
+.map-node {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--earth-400);
+  box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+  z-index: 1;
+  transition: all var(--transition-fast);
+}
+
+.map-node.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.map-node:hover {
+  transform: scale(2);
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.6);
+}
+
+.hazard-zone {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  left: 55%;
+  top: 42%;
+  background: rgba(245, 158, 11, 0.06);
+  animation: pulse 2s ease-in-out infinite;
+  z-index: 1;
+}
+
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 55% 42%, transparent 30%, rgba(7, 17, 31, 0.25) 70%);
+  pointer-events: none;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  display: flex;
+  gap: 11px;
+  font-size: 8px;
+  color: var(--text-400);
+  background: rgba(7, 17, 31, 0.7);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(5px);
+  z-index: 2;
+}
+
+.map-legend i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--earth-400);
+  margin-right: 3px;
+}
+
+@media (max-width: 900px) {
+  .india-map {
+    height: 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .india-map {
+    height: 220px;
+  }
+
+  .map-legend {
+    gap: 6px;
+    font-size: 7px;
+    padding: 4px 8px;
+  }
+
+  .hazard-zone {
+    width: 60px;
+    height: 60px;
+  }
+}
