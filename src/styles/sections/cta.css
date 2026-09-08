@@ -1,1 +1,86 @@
-.final-cta{background:radial-gradient(ellipse at center bottom,rgb(74 222 128 / .05),transparent 58%)}
+.final-cta {
+  max-width: var(--container);
+  margin: 80px auto 0;
+  padding: 100px 36px;
+  text-align: center;
+  border-top: 1px solid var(--line-light);
+  background: radial-gradient(ellipse at center bottom, rgba(74, 222, 128, 0.04), transparent 58%);
+  position: relative;
+}
+
+.final-cta .eyebrow {
+  color: var(--earth-300);
+}
+
+.final-cta h2 {
+  font-size: 47px;
+  margin: 15px auto 28px;
+  line-height: 1.1;
+}
+
+.final-cta h2 em {
+  font-style: normal;
+  color: var(--earth-300);
+}
+
+.final-cta .actions {
+  justify-content: center;
+}
+
+.cta-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid var(--line-light);
+  flex-wrap: wrap;
+}
+
+.cta-metrics div {
+  text-align: center;
+}
+
+.cta-metrics span {
+  display: block;
+  font-size: 8px;
+  color: var(--text-500);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cta-metrics b {
+  font: 600 22px var(--font-display);
+  color: var(--earth-400);
+}
+
+@media (max-width: 900px) {
+  .final-cta {
+    padding: 80px 25px;
+    margin-top: 60px;
+  }
+
+  .final-cta h2 {
+    font-size: 38px;
+  }
+}
+
+@media (max-width: 600px) {
+  .final-cta {
+    padding: 60px 20px;
+    margin-top: 30px;
+  }
+
+  .final-cta h2 {
+    font-size: 31px;
+  }
+
+  .cta-metrics {
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .cta-metrics b {
+    font-size: 18px;
+  }
+}
