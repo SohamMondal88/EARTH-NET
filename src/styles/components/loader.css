@@ -1,1 +1,42 @@
-[aria-busy='true']{cursor:progress}
+[aria-busy='true'] {
+  cursor: progress;
+}
+
+.loader {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--line-light);
+  border-top-color: var(--earth-400);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader.small {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.loader.large {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+}
+
+.loader.cyan {
+  border-top-color: var(--cyan-400);
+}
+
+.loader-container {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  padding: var(--space-4);
+}
+
+.loader-container p {
+  margin-top: var(--space-2);
+  font-size: 13px;
+  color: var(--text-500);
+}
