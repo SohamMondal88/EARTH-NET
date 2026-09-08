@@ -1,1 +1,47 @@
-.page-callout{border-radius:var(--radius-md)}
+.page-callout {
+  margin-top: 55px;
+  padding: 25px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  background: linear-gradient(100deg, rgba(74, 222, 128, 0.04), rgba(34, 211, 238, 0.03));
+  border-radius: var(--radius-md);
+}
+
+.page-callout > svg {
+  color: var(--earth-300);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.page-callout b {
+  font: 500 19px var(--font-display);
+  color: var(--text-200);
+}
+
+.page-callout p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-400);
+  margin: 7px 0 0;
+  max-width: 700px;
+}
+
+@media (max-width: 600px) {
+  .page-callout {
+    margin-top: 35px;
+    padding: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .page-callout b {
+    font-size: 17px;
+  }
+
+  .page-callout p {
+    font-size: 12px;
+  }
+}
