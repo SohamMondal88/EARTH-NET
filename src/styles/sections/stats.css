@@ -1,1 +1,75 @@
-.impact{background:rgb(255 255 255 / .015)}
+.impact {
+  border-top: 1px solid var(--line-light);
+  border-bottom: 1px solid var(--line-light);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin: 0 auto;
+  max-width: var(--container);
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.impact div {
+  padding: 17px 14px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-400);
+  border-right: 1px solid var(--line-light);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  position: relative;
+  min-height: 60px;
+}
+
+.impact div:last-child {
+  border-right: 0;
+}
+
+.impact span {
+  color: var(--earth-400);
+  font-size: 9px;
+  font-weight: 600;
+  font-family: var(--font-display);
+}
+
+.impact-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan-400), var(--earth-400));
+  border-radius: 0 2px 2px 0;
+  transition: width 1s ease;
+}
+
+@media (max-width: 900px) {
+  .impact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .impact div {
+    padding: 13px 8px;
+    font-size: 8px;
+    min-height: 50px;
+  }
+
+  .impact div:nth-child(3) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .impact {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .impact div {
+    min-height: 44px;
+    padding-inline: 10px;
+    font-size: 7px;
+  }
+
+  .impact div:nth-child(2) {
+    border-right: 0;
+  }
+}
