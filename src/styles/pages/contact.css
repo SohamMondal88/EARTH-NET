@@ -1,1 +1,109 @@
-.contact-form input,.contact-form textarea,.contact-form select{transition:border-color .2s,box-shadow .2s}.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{box-shadow:0 0 0 3px rgb(74 222 128 / .12)}
+.contact-page .section-title {
+  max-width: 680px;
+}
+
+.contact-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 17px;
+  max-width: 780px;
+  margin-top: 48px;
+  padding: 30px;
+  background: rgba(10, 27, 43, 0.4);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-md);
+}
+
+.contact-form label {
+  font-size: 11px;
+  color: var(--text-400);
+  display: grid;
+  gap: 7px;
+  font-weight: 500;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-100);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  outline: none;
+  transition: all var(--transition-base);
+  font-size: 13px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: var(--earth-400);
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.08);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-500);
+}
+
+.contact-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+.contact-form select option {
+  background: var(--space-900);
+  color: var(--text-100);
+}
+
+.contact-form .full {
+  grid-column: span 2;
+}
+
+.contact-form .button {
+  border: 0;
+  width: max-content;
+  min-width: 180px;
+}
+
+.contact-page::after {
+  content: 'DEMO / SIMULATED CONTACT FLOW · v2.0';
+  display: block;
+  margin-top: 16px;
+  color: var(--text-500);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .contact-form {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-page .contact-form {
+    padding: 20px;
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+  }
+
+  .contact-form .full {
+    grid-column: auto;
+  }
+
+  .contact-form .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-page::after {
+    font-size: 8px;
+  }
+}
