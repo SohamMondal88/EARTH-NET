@@ -1,1 +1,49 @@
-/* Future route fallback uses the global page layout. */
+.not-found {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 36px;
+}
+
+.not-found .section-title {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.not-found .section-title h2 {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.not-found .actions {
+  margin-top: 32px;
+  justify-content: center;
+}
+
+.not-found .actions .button {
+  min-width: 180px;
+}
+
+@media (max-width: 600px) {
+  .not-found {
+    padding: 60px 20px;
+    min-height: 60vh;
+  }
+
+  .not-found .section-title h2 {
+    font-size: 34px;
+  }
+
+  .not-found .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .not-found .actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
