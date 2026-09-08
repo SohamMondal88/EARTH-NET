@@ -1,1 +1,116 @@
-.dashboard{background:linear-gradient(135deg,rgb(34 211 238 / .025),transparent 34%)}
+.dashboard {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.02), transparent 34%);
+}
+
+.dash-head .eyebrow i {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Real-time indicator */
+.real-time-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  color: var(--text-500);
+}
+
+.real-time-indicator .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--earth-400);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+.real-time-indicator .label {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Live badge */
+.live-badge {
+  font-size: 7px;
+  text-transform: uppercase;
+  background: var(--critical-400);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  animation: alert-pulse 1.5s ease-in-out infinite;
+}
+
+/* Status indicators */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+}
+
+.status-indicator .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-indicator .dot.online {
+  background: var(--earth-400);
+}
+
+.status-indicator .dot.warning {
+  background: var(--warning-400);
+}
+
+.status-indicator .dot.offline {
+  background: var(--critical-400);
+}
+
+.status-indicator .label {
+  color: var(--text-400);
+}
+
+/* Dashboard card headers */
+.dash-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.dash-card-header h4 {
+  font: 600 12px var(--font-display);
+  color: var(--text-200);
+}
+
+.dash-card-header .timestamp {
+  font-size: 8px;
+  color: var(--text-500);
+}
+
+/* Sensor value changes */
+.sensor-change {
+  font-size: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.sensor-change.up {
+  color: var(--critical-400);
+}
+
+.sensor-change.down {
+  color: var(--earth-400);
+}
+
+.sensor-change.stable {
+  color: var(--text-500);
+}
+
+@media (max-width: 600px) {
+  .dash-card-header h4 {
+    font-size: 11px;
+  }
+}
