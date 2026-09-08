@@ -1,1 +1,110 @@
-.ai-panel{position:relative;overflow:hidden}.ai-panel:after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 38%,rgb(255 255 255 / .05),transparent 55%);transform:translateX(-110%);animation:ai-sweep 7s ease-in-out infinite}
+.ai-panel {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, #123044, #081827);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-panel);
+}
+
+.ai-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.04), transparent 55%);
+  transform: translateX(-110%);
+  animation: ai-sweep 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.panel-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-400);
+}
+
+.panel-top b {
+  color: var(--earth-300);
+  font-size: 9px;
+}
+
+.panel-status {
+  color: var(--earth-400);
+  font-size: 8px;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.ai-score {
+  text-align: center;
+  padding: 35px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-score small,
+.ai-score span {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  color: var(--text-500);
+}
+
+.ai-score strong {
+  font: 600 86px / 0.9 var(--font-display);
+  color: var(--text-100);
+  display: block;
+  margin: 11px;
+}
+
+.ai-score span {
+  color: var(--warning-400);
+}
+
+.score-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan-400), var(--earth-400));
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+
+.ai-metrics {
+  border-top: 1px solid var(--line-light);
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-500);
+  position: relative;
+  z-index: 1;
+}
+
+.ai-metrics b {
+  display: block;
+  color: var(--text-100);
+  margin-top: 4px;
+  font-size: 15px;
+}
+
+@media (max-width: 600px) {
+  .ai-score strong {
+    font-size: 68px;
+  }
+
+  .ai-metrics {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
