@@ -1,40 +1,71 @@
 :root {
-    --space-950: #07111f;
-    --space-900: #0d1b2a;
-    --surface-800: #13263a;
-    --surface-glass: rgba(19, 38, 58, 0.72);
-
-    --earth-400: #4ade80;
-    --earth-300: #86efac;
-    --earth-200: #bbf7d0;
-
-    --cyan-400: #22d3ee;
-    --cyan-300: #67e8f9;
-    --cyan-200: #a5f3fc;
-
-    --warning-400: #f59e0b;
-    --critical-400: #ef4444;
-
-    --text-100: #f8fafc;
-    --text-300: #cbd5e1;
-    --text-500: #94a3b8;
-    --text-700: #64748b;
-
-    --line: rgba(255, 255, 255, 0.12);
-    --line-light: rgba(255, 255, 255, 0.06);
-
-    --radius-sm: 6px;
-    --radius-md: 10px;
-    --radius-lg: 16px;
-
-    --shadow-panel: 0 20px 45px rgba(0, 0, 0, 0.26);
-    --shadow-glow: 0 0 30px rgba(34, 211, 238, 0.15);
-
-    --container: 1200px;
-    --nav-height: 76px;
-
-    --space-1: clamp(0.5rem, 0.75vw, 0.75rem);
-    --space-2: clamp(0.75rem, 1.25vw, 1.25rem);
-    --space-3: clamp(1rem, 2vw, 2rem);
-    --space-4: clamp(1.5rem, 4vw, 4rem);
+  /* Colors */
+  --space-950: #07111f;
+  --space-900: #0d1b2a;
+  --space-800: #13263a;
+  --space-700: #1a3349;
+  
+  --surface-800: #13263a;
+  --surface-glass: rgba(19, 38, 58, 0.72);
+  --surface-glass-light: rgba(19, 38, 58, 0.4);
+  
+  --earth-400: #4ade80;
+  --earth-300: #86efac;
+  --earth-200: #bbf7d0;
+  --earth-100: #dcfce7;
+  
+  --cyan-400: #22d3ee;
+  --cyan-300: #67e8f9;
+  --cyan-200: #a5f3fc;
+  --cyan-100: #cffafe;
+  
+  --warning-400: #f59e0b;
+  --warning-300: #fbbf24;
+  --critical-400: #ef4444;
+  --critical-300: #f87171;
+  
+  --text-100: #f8fafc;
+  --text-200: #e2e8f0;
+  --text-300: #cbd5e1;
+  --text-400: #94a3b8;
+  --text-500: #64748b;
+  --text-600: #475569;
+  
+  --line: rgba(255, 255, 255, 0.12);
+  --line-light: rgba(255, 255, 255, 0.06);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  
+  /* Shadows */
+  --shadow-panel: 0 20px 45px rgba(0, 0, 0, 0.26);
+  --shadow-glow: 0 0 30px rgba(34, 211, 238, 0.15);
+  --shadow-glow-green: 0 0 30px rgba(74, 222, 128, 0.15);
+  --shadow-elevated: 0 30px 60px rgba(0, 0, 0, 0.3);
+  
+  /* Sizing */
+  --container: 1200px;
+  --nav-height: 76px;
+  --nav-height-mobile: 68px;
+  
+  /* Spacing */
+  --space-1: clamp(0.5rem, 0.75vw, 0.75rem);
+  --space-2: clamp(0.75rem, 1.25vw, 1.25rem);
+  --space-3: clamp(1rem, 2vw, 2rem);
+  --space-4: clamp(1.5rem, 4vw, 4rem);
+  --space-5: clamp(2rem, 5vw, 5rem);
+  --space-6: clamp(3rem, 6vw, 6rem);
+  
+  /* Font */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
 }
