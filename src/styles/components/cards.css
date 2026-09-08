@@ -1,1 +1,184 @@
-.problem-card,.hazard-card,.info-grid article{transition:transform .22s ease,border-color .22s ease,background .22s ease}.ai-panel,.map-card,.alert-card,.trend-card,.node-card{box-shadow:var(--shadow-panel)}
+/* Base card styles */
+.problem-card,
+.hazard-card,
+.info-grid article {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-md);
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.problem-card:hover,
+.hazard-card:hover,
+.info-grid article:hover {
+  border-color: rgba(34, 211, 238, 0.3);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-panel);
+}
+
+.problem-card::before,
+.hazard-card::before,
+.info-grid article::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan-400), var(--earth-400));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.problem-card:hover::before,
+.hazard-card:hover::before,
+.info-grid article:hover::before {
+  opacity: 1;
+}
+
+/* Dashboard cards */
+.ai-panel,
+.map-card,
+.alert-card,
+.trend-card,
+.node-card {
+  background: rgba(11, 29, 45, 0.6);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: blur(4px);
+  transition: all var(--transition-base);
+}
+
+.ai-panel:hover,
+.map-card:hover,
+.alert-card:hover,
+.trend-card:hover,
+.node-card:hover {
+  border-color: rgba(34, 211, 238, 0.2);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-400);
+}
+
+.card-title svg {
+  width: 15px;
+  vertical-align: middle;
+  margin-right: 4px;
+  color: var(--earth-300);
+}
+
+.card-title small {
+  font-size: 8px;
+  color: var(--text-500);
+}
+
+/* Info grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  align-items: stretch;
+}
+
+.info-grid article {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-grid svg {
+  color: var(--earth-400);
+  margin: 16px 0 12px;
+}
+
+.info-grid h3 {
+  font: 500 18px var(--font-display);
+  margin: 0 0 8px;
+}
+
+.info-grid p {
+  font-size: 13px;
+  color: var(--text-400);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.info-grid .card-number {
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  color: var(--earth-300);
+}
+
+.info-grid small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1.1px;
+  color: var(--text-500);
+  margin-top: 12px;
+}
+
+/* Card status */
+.hazard-status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 8px;
+  color: var(--earth-400);
+  letter-spacing: 0.5px;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Alert card */
+.alert-card {
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.alert-card h3 {
+  font: 600 20px / 1.2 var(--font-display);
+  margin: 30px 0 8px;
+}
+
+.alert-card > p {
+  font-size: 12px;
+  color: var(--text-300);
+  line-height: 1.6;
+}
+
+.alert-card dl {
+  margin: 20px 0;
+}
+
+.alert-card dl div {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-light);
+  padding: 9px 0;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+.alert-card dt {
+  color: var(--text-500);
+}
+
+.alert-card dd {
+  margin: 0;
+  color: var(--text-200);
+}
+
+.alert-card small.red {
+  animation: alert-pulse 1.4s ease-in-out infinite;
+}
