@@ -1,1 +1,189 @@
-.button:focus-visible,.menu:focus-visible,.simbar button:focus-visible,.sim-buttons button:focus-visible,.dashboard aside button:focus-visible,.detail:focus-visible{outline:2px solid var(--cyan-400);outline-offset:3px}.button:active,.simbar button:active,.sim-buttons button:active{transform:translateY(1px)}
+.button {
+  border: 1px solid var(--earth-400);
+  background: var(--earth-400);
+  color: var(--space-950);
+  border-radius: var(--radius-sm);
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  font-weight: 700;
+  font-size: 13px;
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.button:hover::before {
+  opacity: 1;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background: var(--earth-300);
+  box-shadow: var(--shadow-glow-green);
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--cyan-400);
+  outline-offset: 3px;
+}
+
+.button.secondary {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-200);
+}
+
+.button.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--line-strong);
+  box-shadow: none;
+}
+
+.button.small {
+  padding: 8px 14px;
+  font-size: 11px;
+  min-height: 36px;
+}
+
+.button.large {
+  padding: 16px 28px;
+  font-size: 15px;
+  min-height: 52px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.nav-cta {
+  margin-left: 4px;
+  padding: 10px 16px;
+  font-size: 12px;
+  min-height: 38px;
+}
+
+.menu {
+  display: none;
+  background: none;
+  border: 0;
+  color: var(--text-100);
+  margin-left: auto;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.menu:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.menu:focus-visible {
+  outline: 2px solid var(--cyan-400);
+  outline-offset: 2px;
+}
+
+.simbar button,
+.sim-buttons button {
+  border: 1px solid var(--line-light);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text-300);
+  padding: 10px 16px;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  min-height: 36px;
+}
+
+.simbar button:hover,
+.sim-buttons button:hover {
+  border-color: var(--earth-400);
+  color: var(--earth-300);
+  background: rgba(74, 222, 128, 0.05);
+}
+
+.simbar button:active,
+.sim-buttons button:active {
+  transform: translateY(1px);
+}
+
+.simbar button.selected {
+  border-color: var(--earth-400);
+  color: var(--earth-300);
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.dashboard aside button {
+  border: 0;
+  background: transparent;
+  color: var(--text-400);
+  display: flex;
+  gap: 10px;
+  padding: 10px 8px;
+  text-align: left;
+  font-size: 11px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  width: 100%;
+  cursor: pointer;
+}
+
+.dashboard aside button:hover {
+  color: var(--earth-200);
+  background: rgba(74, 222, 128, 0.06);
+}
+
+.dashboard aside button.active {
+  color: var(--earth-200);
+  background: rgba(74, 222, 128, 0.08);
+}
+
+.dashboard aside button:focus-visible {
+  outline: 2px solid var(--cyan-400);
+  outline-offset: 2px;
+}
+
+.detail {
+  border: 0;
+  background: none;
+  color: var(--earth-300);
+  font-size: 11px;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.detail:hover {
+  color: var(--earth-100);
+  gap: 10px;
+}
+
+.detail:focus-visible {
+  outline: 2px solid var(--cyan-400);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
