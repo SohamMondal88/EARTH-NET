@@ -1,1 +1,261 @@
-.satellite{box-shadow:0 0 20px rgb(74 222 128 / .14)}
+.globe-wrap {
+  height: 500px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.globe {
+  width: min(390px, 80vw);
+  height: min(390px, 80vw);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 35% 30%, #1c6e86, #0e4056 48%, #071d34 72%);
+  box-shadow:
+    inset -35px -30px 50px rgba(2, 7, 18, 0.6),
+    0 0 65px rgba(34, 211, 238, 0.15),
+    0 0 100px rgba(74, 222, 128, 0.05);
+  animation: float 8s ease-in-out infinite;
+}
+
+.grid {
+  position: absolute;
+  inset: -15%;
+  background:
+    repeating-linear-gradient(0deg, rgba(114, 213, 229, 0.08) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(90deg, rgba(114, 213, 229, 0.08) 0 1px, transparent 1px 32px);
+  transform: perspective(300px) rotateX(55deg) scale(1.45);
+}
+
+.land {
+  position: absolute;
+  background: rgba(67, 189, 119, 0.6);
+  filter: drop-shadow(0 0 20px rgba(74, 222, 128, 0.15));
+  border-radius: 50% 40% 45% 40%;
+}
+
+.land-a {
+  width: 93px;
+  height: 130px;
+  left: 51%;
+  top: 38%;
+  transform: rotate(25deg);
+}
+
+.land-b {
+  width: 100px;
+  height: 70px;
+  left: 20%;
+  top: 27%;
+  transform: rotate(-30deg);
+}
+
+.globe svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: rgba(34, 211, 238, 0.3);
+  fill: none;
+  stroke-width: 1;
+}
+
+.node {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--earth-300);
+  box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.15), 0 0 20px rgba(74, 222, 128, 0.2);
+  z-index: 2;
+  animation: pulse 2s infinite;
+}
+
+.n1 {
+  top: 45%;
+  left: 65%;
+}
+.n2 {
+  top: 29%;
+  left: 37%;
+  animation-delay: 0.5s;
+}
+.n3 {
+  top: 65%;
+  left: 50%;
+  animation-delay: 1s;
+}
+.n4 {
+  top: 36%;
+  left: 75%;
+  animation-delay: 1.5s;
+}
+.n5 {
+  top: 57%;
+  left: 22%;
+  animation-delay: 1.8s;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(34, 211, 238, 0.15);
+  border-radius: 50%;
+  width: 450px;
+  height: 178px;
+  transform: rotate(-28deg);
+  z-index: -1;
+}
+
+.orbit-b {
+  width: 470px;
+  height: 126px;
+  transform: rotate(46deg);
+  border-color: rgba(74, 222, 128, 0.12);
+}
+
+.satellite {
+  position: absolute;
+  top: 51px;
+  right: 30px;
+  color: var(--earth-300);
+  background: rgba(13, 51, 64, 0.8);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  z-index: 3;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.12);
+  backdrop-filter: blur(5px);
+}
+
+.satellite-label {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  font-size: 6px;
+  background: var(--critical-400);
+  color: white;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+  line-height: 1.4;
+}
+
+.glow-ring {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  border: 1px solid rgba(34, 211, 238, 0.04);
+  border-radius: 50%;
+}
+
+.telemetry {
+  position: absolute;
+  z-index: 4;
+  padding: 10px 14px;
+  background: rgba(12, 32, 55, 0.85);
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(8px);
+  min-width: 128px;
+  box-shadow: var(--shadow-panel);
+}
+
+.telemetry.top {
+  top: 62px;
+  left: 0;
+}
+
+.telemetry.bottom {
+  right: 0;
+  bottom: 60px;
+}
+
+.telemetry small,
+.telemetry em {
+  display: block;
+  font-style: normal;
+  color: var(--text-400);
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.telemetry b {
+  font: 600 25px var(--font-display);
+}
+
+.telemetry em {
+  color: var(--earth-300);
+}
+
+.scan {
+  position: absolute;
+  border: 1px solid rgba(34, 211, 238, 0.1);
+  width: 390px;
+  height: 390px;
+  border-radius: 50%;
+  animation: scan 5s linear infinite;
+}
+
+.connection-line {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 30%, rgba(34, 211, 238, 0.02) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .globe-wrap {
+    height: 390px;
+    margin-top: -20px;
+  }
+
+  .globe {
+    width: 300px;
+    height: 300px;
+  }
+
+  .orbit {
+    width: 350px;
+  }
+
+  .telemetry.top {
+    left: 0;
+    top: 30px;
+  }
+
+  .telemetry.bottom {
+    right: 0;
+    bottom: 35px;
+  }
+}
+
+@media (max-width: 600px) {
+  .globe-wrap {
+    height: 345px;
+    transform: scale(0.88);
+    margin: -15px -35px;
+  }
+
+  .telemetry {
+    transform: scale(0.88);
+    padding: 8px 10px;
+    min-width: 100px;
+  }
+
+  .telemetry.top {
+    left: -4px;
+    top: 25px;
+  }
+
+  .telemetry.bottom {
+    right: -4px;
+    bottom: 30px;
+  }
+
+  .telemetry b {
+    font-size: 20px;
+  }
+}
