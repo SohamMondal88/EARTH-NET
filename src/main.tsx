@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import React, { useEffect, useState, useRef, useCallback, memo } from 'react'
 import { createRoot } from 'react-dom/client'
+import { Analytics } from '@vercel/analytics/react'
 import {
     Activity, AlertTriangle, ArrowRight, Atom, Battery, Bell, BrainCircuit,
     ChevronRight, CircleDot, Cloud, Cpu, Crosshair, Flame, Gauge, Globe2,
@@ -1181,6 +1182,7 @@ function App() {
             <Navbar />
             {body}
             <Footer />
+            <Analytics />
         </>
     )
 }
