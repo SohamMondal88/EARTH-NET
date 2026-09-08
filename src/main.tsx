@@ -10,6 +10,7 @@ import {
     BarChart3, LineChart, Layers, HardDrive, Database, Globe, Lock,
     Users, Award, Star, Target, Zap as ZapIcon, Compass, Navigation
 } from 'lucide-react'
+import { Analytics } from '@vercel/analytics/react'
 import './styles.css'
 
 // ============= TYPES =============
@@ -1181,6 +1182,7 @@ function App() {
             <Navbar />
             {body}
             <Footer />
+            <Analytics />
         </>
     )
 }
