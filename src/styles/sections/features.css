@@ -1,1 +1,99 @@
-.info-grid{align-items:stretch}
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  align-items: stretch;
+}
+
+.info-grid article {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--line-light);
+  border-radius: var(--radius-md);
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+}
+
+.info-grid article:hover {
+  border-color: rgba(34, 211, 238, 0.25);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-panel);
+}
+
+.info-grid article::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cyan-400), var(--earth-400));
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.info-grid article:hover::before {
+  opacity: 1;
+}
+
+.info-grid svg {
+  color: var(--earth-400);
+  margin: 16px 0 12px;
+}
+
+.info-grid h3 {
+  font: 500 18px var(--font-display);
+  margin: 0 0 8px;
+  color: var(--text-200);
+}
+
+.info-grid p {
+  font-size: 13px;
+  color: var(--text-400);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.info-grid .card-number {
+  font-size: 9px;
+  letter-spacing: 0.8px;
+  color: var(--earth-300);
+  font-weight: 600;
+}
+
+.info-grid small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1.1px;
+  color: var(--text-500);
+  margin-top: 12px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1200px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-grid article {
+    min-height: 170px;
+    padding: 20px;
+  }
+}
