@@ -1,1 +1,81 @@
-.team{max-width:900px}.team article{transition:padding-left .2s ease}.team article:hover{padding-left:.5rem}
+.team {
+  max-width: 900px;
+  margin-top: 70px;
+}
+
+.team h2 {
+  font: 600 32px var(--font-display);
+  margin: 8px 0;
+}
+
+.team .sih-title p {
+  color: var(--text-400);
+  margin: 0;
+}
+
+.team article {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-light);
+  padding: 15px 0;
+  font-size: 13px;
+  transition: padding-left var(--transition-base);
+}
+
+.team article:hover {
+  padding-left: 0.5rem;
+}
+
+.team article b {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-200);
+}
+
+.team article span {
+  color: var(--text-400);
+}
+
+.team > p {
+  color: var(--earth-300);
+  font-size: 11px;
+  margin-top: 25px;
+}
+
+.sih-title {
+  margin-bottom: 25px;
+}
+
+.sih-title h2 {
+  margin: 8px 0;
+  font: 600 34px var(--font-display);
+}
+
+.sih-title p {
+  color: var(--text-400);
+  margin: 0;
+}
+
+.sih-meta {
+  font-size: 10px !important;
+  letter-spacing: 1px;
+  color: var(--earth-300) !important;
+  margin-top: 25px;
+}
+
+@media (max-width: 600px) {
+  .team article {
+    display: grid;
+    gap: 4px;
+    padding: 12px 0;
+    font-size: 12px;
+  }
+
+  .team h2 {
+    font-size: 26px;
+  }
+
+  .sih-title h2 {
+    font-size: 28px;
+  }
+}
