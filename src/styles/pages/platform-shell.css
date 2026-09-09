@@ -15,3 +15,155 @@
 .profile-grid{display:grid;grid-template-columns:320px 1fr;gap:12px}.avatar{width:70px;height:70px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan-500),var(--earth-500));border-radius:50%;color:#031017;font:700 23px var(--font-display)}.profile-card h2{margin:16px 0 4px}.profile-card>p{color:var(--text-400);font-size:10px}.profile-card dl{margin-top:25px}.profile-card dl div{padding:12px 0;border-bottom:1px solid var(--line-light)}.profile-card dt{font-size:8px;color:var(--text-500)}.profile-card dd{font-size:11px;margin:5px 0 0}.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.profile-form h3,.profile-form .button,.profile-form>small{grid-column:1/-1}.profile-form .button{width:max-content;margin-top:22px}.profile-form>small{color:var(--text-500);margin-top:9px}
 @media(max-width:850px){.ops-shell{display:block}.ops-side{height:auto;position:static;flex-direction:row;overflow:auto;padding:12px}.ops-side>.logo,.ops-side>span,.ops-health{display:none}.ops-side>a{white-space:nowrap}.ops-metrics{grid-template-columns:1fr 1fr}.ops-grid,.auth-page,.profile-grid{grid-template-columns:1fr}.entity-head,.alert-summary{grid-template-columns:1fr 1fr}.sensor-grid{grid-template-columns:1fr 1fr}.auth-story{display:none}.admin-layout{grid-template-columns:1fr}.admin-layout>aside{display:flex;overflow:auto;border-right:0}.admin-layout>aside button{white-space:nowrap;width:auto}.admin-grid{grid-template-columns:1fr}}
 @media(max-width:520px){.ops-main{padding:20px 12px}.ops-head{align-items:flex-start}.ops-user{display:none}.ops-metrics{grid-template-columns:1fr 1fr}.record-row{grid-template-columns:1fr 1fr}.record-row span:nth-child(n+3){display:none}.sensor-grid,.profile-form{grid-template-columns:1fr}.admin-page>header div{display:none}}
+
+/* Responsive refinements for every operations view. */
+@media (max-width: 1050px) {
+  .ops-shell,
+  .admin-layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  .ops-main {
+    padding-inline: clamp(18px, 3vw, 32px);
+  }
+
+  .sensor-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .entity-head,
+  .alert-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .entity-head div,
+  .alert-summary div {
+    border-bottom: 1px solid var(--line-light);
+  }
+}
+
+@media (max-width: 850px) {
+  .ops-side,
+  .admin-layout > aside {
+    position: sticky;
+    top: 0;
+    z-index: 15;
+    scrollbar-width: thin;
+    overscroll-behavior-inline: contain;
+    background: rgba(8, 21, 34, 0.96);
+    backdrop-filter: blur(14px);
+  }
+
+  .ops-side > a,
+  .admin-layout > aside button {
+    min-height: 44px;
+    flex: 0 0 auto;
+  }
+
+  .ops-main,
+  .admin-layout > section {
+    width: 100%;
+  }
+
+  .panel-actions {
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .panel-actions div {
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 3px;
+  }
+
+  .map-land {
+    height: clamp(320px, 55vw, 470px);
+  }
+
+  .auth-card {
+    min-height: 100dvh;
+    width: min(100%, 620px);
+    margin-inline: auto;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .ops-head h1,
+  .admin-layout h1 {
+    font-size: clamp(1.65rem, 9vw, 2.2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .ops-metrics,
+  .entity-head,
+  .alert-summary,
+  .sensor-grid,
+  .admin-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ops-metrics article,
+  .entity-head div,
+  .alert-summary div {
+    padding: 14px;
+  }
+
+  .entity-head div,
+  .alert-summary div {
+    border-right: 0;
+  }
+
+  .simulation-notice {
+    align-items: flex-start;
+    line-height: 1.55;
+  }
+
+  .data-panel {
+    padding: 14px;
+  }
+
+  .evidence-line {
+    grid-template-columns: minmax(76px, auto) minmax(60px, 1fr) 38px;
+    gap: 7px;
+  }
+
+  .map-key {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+
+  .map-land::before {
+    transform: scale(0.78);
+    transform-origin: top center;
+  }
+
+  .auth-card {
+    padding: max(24px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
+  }
+
+  .auth-card h2 {
+    font-size: clamp(1.75rem, 9vw, 2.2rem);
+  }
+
+  .auth-options {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .admin-page > header {
+    height: 60px;
+    padding-inline: 16px;
+  }
+
+  .admin-layout > section {
+    padding: 28px 14px;
+  }
+
+  .profile-form .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
