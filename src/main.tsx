@@ -39,12 +39,12 @@ interface Alert {
 
 // ============= CONSTANTS =============
 const nav = [
-    ['Platform', '/'],
+    ['Platform', '/platform'],
     ['Technology', '/technology'],
     ['Intelligence', '/intelligence'],
     ['Hardware', '/hardware'],
     ['Dashboard', '/dashboard'],
-    ['Disasters', '/disasters'],
+    ['Hazards', '/hazards'],
     ['Network', '/network'],
     ['Research', '/research'],
     ['About', '/about'],
@@ -937,6 +937,20 @@ type PageDetail = {
 }
 
 const pageDetails: Record<string, PageDetail> = {
+    platform: {
+        eyebrow: 'PLATFORM OVERVIEW',
+        title: 'From environmental signal to coordinated action.',
+        copy: 'EARTH-NET is organized as three connected layers: a public knowledge portal, an operational monitoring platform, and a protected administration and control system.',
+        cards: [
+            ['Public Website', 'Explains capabilities, evidence, hardware and hazards to communities, researchers and institutions.'],
+            ['Command Center', 'Gives authorized operators a live, map-first view of nodes, telemetry, alerts and incidents.'],
+            ['Administration', 'Separates identity, device, model and policy controls from day-to-day monitoring.'],
+            ['Field Operations', 'Supports deployment, commissioning, calibration and maintenance across the sensor estate.'],
+            ['Developer Interfaces', 'Creates governed integration paths for environmental data, alerts and device health.'],
+            ['Accountable Decisions', 'Preserves evidence, confidence, acknowledgement and incident history for every response.']
+        ],
+        facts: [['LAYERS', 'Public · Operations · Admin'], ['CORE', 'Map-first command center'], ['CONTROL', 'Role-based access'], ['DATA', 'Simulation clearly labelled']]
+    },
     technology: {
         eyebrow: 'SYSTEM ARCHITECTURE',
         title: 'A resilient intelligence stack.',
@@ -979,7 +993,7 @@ const pageDetails: Record<string, PageDetail> = {
         ],
         facts: [['NODE', 'EARTH-NET A17'], ['BATTERY', '87% / simulated'], ['SIGNAL', '-72 dBm / simulated'], ['EDGE AI', 'Active / simulated']]
     },
-    disasters: {
+    hazards: {
         eyebrow: 'RISK INTELLIGENCE',
         title: 'Signals become decision support.',
         copy: 'Each prototype module combines local readings with context to estimate risk. These views support earlier awareness; they do not guarantee disaster prediction.',
@@ -1153,6 +1167,98 @@ function GenericPage({ page }: { page: string }) {
     )
 }
 
+const operationsNav = [
+    ['Command center', '/dashboard'], ['Live map', '/dashboard/map'], ['Sensor nodes', '/dashboard/nodes'],
+    ['Gateways', '/dashboard/gateways'], ['Telemetry', '/dashboard/telemetry'], ['Alerts', '/dashboard/alerts'],
+    ['Incidents', '/dashboard/incidents'], ['AI intelligence', '/dashboard/intelligence'],
+    ['Historical data', '/dashboard/history'], ['System health', '/dashboard/system-health']
+]
+
+const demoNodes = [
+    ['EN-WB-017', 'Bardhaman, West Bengal', 'ONLINE', '87%', '-72 dBm', '12 sec', 'HIGH', '2.4.1'],
+    ['EN-AS-042', 'Dibrugarh, Assam', 'ONLINE', '74%', '-68 dBm', '28 sec', 'MODERATE', '2.4.1'],
+    ['EN-UK-103', 'Pauri, Uttarakhand', 'WARNING', '42%', '-91 dBm', '2 min', 'HIGH', '2.3.8'],
+    ['EN-KL-028', 'Idukki, Kerala', 'ONLINE', '91%', '-64 dBm', '8 sec', 'LOW', '2.4.1'],
+    ['EN-DL-006', 'Delhi NCR', 'MAINTENANCE', '—', '—', '3 hr', 'MODERATE', '2.4.0']
+]
+
+function OperationsShell({ title, eyebrow, children }: { title: string; eyebrow: string; children: React.ReactNode }) {
+    return <main className="ops-shell">
+        <aside className="ops-side">
+            <Logo /><span>OPERATIONAL PLATFORM</span>
+            {operationsNav.map(([label, url]) => <a key={url} href={url} className={location.pathname === url ? 'active' : ''}><CircleDot size={14}/>{label}</a>)}
+            <div className="ops-health"><i/> NETWORK HEALTH <b>98.7%</b><small>SIMULATED ENVIRONMENT</small></div>
+        </aside>
+        <section className="ops-main">
+            <header className="ops-head"><div><span className="eyebrow"><i/> {eyebrow}</span><h1>{title}</h1></div><div className="ops-user"><span>DEMO WORKSPACE</span><b>OPERATOR 07</b></div></header>
+            <div className="simulation-notice"><AlertCircle size={15}/><span><b>Demonstration environment.</b> Values on this screen are simulated and must not be used for emergency decisions.</span></div>
+            {children}
+        </section>
+    </main>
+}
+
+function MetricStrip({ items }: { items: [string, string, string][] }) {
+    return <div className="ops-metrics">{items.map(([label, value, note]) => <article key={label}><span>{label}</span><b>{value}</b><small>{note}</small></article>)}</div>
+}
+
+function MiniMap({ full = false }: { full?: boolean }) {
+    return <div className={`ops-map ${full ? 'full' : ''}`}>
+        <div className="map-toolbar">{['ALL', 'FLOOD', 'FIRE', 'POLLUTION', 'SEISMIC', 'WEATHER', 'NODE STATUS'].map((x, i) => <button className={i === 0 ? 'active' : ''} key={x}>{x}</button>)}</div>
+        <div className="map-land" aria-label="Simulated India environmental intelligence map">
+            {demoNodes.map((node, i) => <a href={`/dashboard/nodes/${node[0]}`} className={`geo-node geo-${i}`} key={node[0]} title={`${node[0]} · ${node[1]}`}><i/><span>{node[0]}</span></a>)}
+            <div className="risk-ring"/><div className="map-scan"/>
+        </div>
+        <div className="map-key"><span><i className="green"/>Online node</span><span><i className="amber"/>Warning</span><span><i className="red"/>High-risk zone</span></div>
+    </div>
+}
+
+function NodeTable() {
+    return <div className="data-panel"><div className="panel-actions"><b>SENSOR ESTATE</b><div>{['ALL', 'ONLINE', 'WARNING', 'CRITICAL', 'MAINTENANCE'].map((x, i) => <button className={i === 0 ? 'active' : ''} key={x}>{x}</button>)}</div></div>
+        <div className="table-scroll"><table><thead><tr>{['NODE ID','LOCATION','STATUS','BATTERY','SIGNAL','LAST SEEN','RISK','FIRMWARE'].map(x => <th key={x}>{x}</th>)}</tr></thead><tbody>
+        {demoNodes.map(row => <tr key={row[0]}>{row.map((cell, i) => <td key={i}>{i === 0 ? <a href={`/dashboard/nodes/${cell}`}>{cell}</a> : i === 2 || i === 6 ? <span className={`state ${cell.toLowerCase()}`}>{cell}</span> : cell}</td>)}</tr>)}</tbody></table></div>
+    </div>
+}
+
+function OperationalPage({ section, id }: { section: string; id?: string }) {
+    if (section === 'map') return <OperationsShell title="Live intelligence map" eyebrow="GIS / MULTI-LAYER VIEW"><MiniMap full/></OperationsShell>
+    if (section === 'nodes' && id) return <NodeDetail nodeId={id}/>
+    if (section === 'nodes') return <OperationsShell title="Sensor nodes" eyebrow="DEVICE FLEET"><MetricStrip items={[["TOTAL NODES","1,248","registered"],["ONLINE","1,211","97.0% available"],["ATTENTION","23","warning or critical"],["MAINTENANCE","14","planned service"]]}/><NodeTable/></OperationsShell>
+    if (section === 'alerts' && id) return <AlertDetail alertId={id}/>
+    const configs: Record<string, {title:string; eyebrow:string; metrics:[string,string,string][]}> = {
+        gateways: { title: 'Communication gateways', eyebrow: 'NETWORK / GATEWAYS', metrics: [['GATEWAYS','42','registered'],['ONLINE','40','95.2% available'],['FALLBACK READY','36','satellite capable'],['PACKET LOSS','0.3%','last 15 min']] },
+        telemetry: { title: 'Live telemetry', eyebrow: 'STREAM / SENSOR READINGS', metrics: [['TEMPERATURE','29.4°C','EN-WB-017'],['HUMIDITY','71%','EN-WB-017'],['WATER LEVEL','2.31 m','rising'],['PM2.5','56 µg/m³','elevated']] },
+        alerts: { title: 'Alert management', eyebrow: 'RISK / VERIFICATION QUEUE', metrics: [['ACTIVE','04','requires review'],['ACKNOWLEDGED','11','assigned'],['RESOLVED','38','last 30 days'],['MEDIAN CONFIDENCE','89%','simulated']] },
+        incidents: { title: 'Incident management', eyebrow: 'RESPONSE / COORDINATION', metrics: [['NEW','02','unassigned'],['INVESTIGATING','04','verification'],['ACTIVE','03','response open'],['RESOLVED','27','last 30 days']] },
+        intelligence: { title: 'AI risk intelligence', eyebrow: 'MODELS / EXPLAINABILITY', metrics: [['PREDICTIONS','12','current signals'],['HIGH RISK','04','review required'],['ANOMALY','0.87','WB-07 cluster'],['MODEL STATUS','VALIDATED','v0.9 pilot']] },
+        history: { title: 'Historical data', eyebrow: 'ARCHIVE / ANALYSIS', metrics: [['EVENTS','2,847','indexed'],['DATE RANGE','90 DAYS','demo dataset'],['REGIONS','14','represented'],['EXPORT','CSV / JSON','available']] },
+        'system-health': { title: 'System health', eyebrow: 'PLATFORM / SERVICE STATUS', metrics: [['OPERATIONAL','07','services'],['DEGRADED','01','alert service'],['OUTAGE','00','services'],['LAST CHECK','14 SEC','automated']] }
+    }
+    const c = configs[section] || configs.telemetry
+    const rows = section === 'alerts' ? [['ALT-2409-04','FLOOD RISK','HIGH','West Bengal','94%','UNDER VERIFICATION'],['ALT-2409-03','FIRE RISK','CRITICAL','Uttarakhand','91%','ACKNOWLEDGED'],['ALT-2409-02','AIR QUALITY','HIGH','Delhi NCR','89%','ACTIVE']] : section === 'incidents' ? [['INC-092','Flood','ACTIVE','West Bengal','Response Team East','09:42'],['INC-091','Forest fire','INVESTIGATING','Uttarakhand','Unassigned','08:16'],['INC-088','Air pollution','CONTAINED','Delhi NCR','Authority NCR','Yesterday']] : section === 'system-health' ? [['Sensors','OPERATIONAL','1,211 / 1,248 online'],['Gateways','OPERATIONAL','40 / 42 online'],['Database','OPERATIONAL','12 ms response'],['AI engine','OPERATIONAL','v0.9 pilot'],['GIS','OPERATIONAL','tiles synchronized'],['Alert service','DEGRADED','SMS provider latency']] : [['WB-07 / Flood','HIGH','0.87 anomaly','94% confidence','Human verification required'],['UK-03 / Fire','CRITICAL','0.91 anomaly','91% confidence','Escalated'],['DL-02 / Air','HIGH','234 AQI','89% confidence','Health advisory draft']]
+    return <OperationsShell title={c.title} eyebrow={c.eyebrow}><MetricStrip items={c.metrics}/><div className="ops-grid"><div className="data-panel wide"><div className="panel-actions"><b>{section === 'system-health' ? 'SERVICE MATRIX' : 'OPERATIONAL QUEUE'}</b><div><button className="active">ACTIVE</button><button>ACKNOWLEDGED</button><button>RESOLVED</button></div></div>{rows.map((r, i) => <a href={section === 'alerts' ? `/dashboard/alerts/${r[0]}` : '#'} className="record-row" key={i}>{r.map((x,j)=><span key={j}>{x}</span>)}<ChevronRight size={15}/></a>)}</div><aside className="data-panel explain-panel"><span>DECISION SUPPORT</span><h3>{section === 'intelligence' ? 'Why risk increased' : 'Operator context'}</h3><p>Signals are cross-validated before an operator converts an alert into a recognized incident.</p>{[['Water level','42%'],['Rainfall','31%'],['Humidity','18%'],['Terrain','9%']].map(([x,n])=><div className="factor" key={x}><span>{x}<b>{n}</b></span><i style={{width:n}}/></div>)}</aside></div></OperationsShell>
+}
+
+function NodeDetail({ nodeId }: { nodeId: string }) {
+    return <OperationsShell title={`Node ${nodeId}`} eyebrow="SENSOR NODE / DETAIL"><div className="entity-head"><div><span>STATUS</span><b className="online">● ONLINE</b></div><div><span>LOCATION</span><b>Bardhaman, West Bengal</b></div><div><span>BATTERY</span><b>87%</b></div><div><span>LoRa SIGNAL</span><b>-72 dBm</b></div><div><span>EDGE AI</span><b>ACTIVE</b></div></div><div className="ops-grid"><div className="data-panel wide"><div className="panel-actions"><b>LIVE SENSOR VALUES</b><small>Last communication 12 seconds ago</small></div><div className="sensor-grid">{[['Temperature','29.4°C'],['Humidity','71%'],['Water level','2.31 m'],['PM2.5','56 µg/m³'],['PM10','91 µg/m³'],['Gas','NORMAL'],['Smoke','CLEAR'],['Vibration','0.018 g'],['Rainfall','12 mm/h'],['Pressure','1004 hPa']].map(([x,n])=><div key={x}><span>{x}</span><b>{n}</b></div>)}</div><div className="fake-chart"><span>24 HOUR WATER-LEVEL TREND</span><svg viewBox="0 0 700 150" preserveAspectRatio="none"><path d="M0 120 C100 110 120 125 210 92 S330 105 420 66 S570 80 700 24"/></svg></div></div><aside className="data-panel entity-meta"><h3>Device health</h3><dl><div><dt>Firmware</dt><dd>2.4.1</dd></div><div><dt>Gateway</dt><dd>GW-WB-04</dd></div><div><dt>Installed</dt><dd>18 Jun 2026</dd></div><div><dt>Next service</dt><dd>18 Dec 2026</dd></div></dl><a className="button secondary" href="/dashboard/alerts/ALT-2409-04">View linked alert</a></aside></div></OperationsShell>
+}
+
+function AlertDetail({ alertId }: { alertId: string }) {
+    return <OperationsShell title={`Alert ${alertId}`} eyebrow="ALERT / EVIDENCE REVIEW"><div className="alert-summary"><div><span>HAZARD</span><b>Flood</b></div><div><span>SEVERITY</span><b className="high">HIGH</b></div><div><span>CONFIDENCE</span><b>94%</b></div><div><span>LOCATION</span><b>West Bengal</b></div><div><span>STATUS</span><b>UNDER VERIFICATION</b></div></div><div className="ops-grid"><div className="data-panel wide"><h3>Evidence and AI analysis</h3><p className="body-copy">Water level increased across three nearby nodes while rainfall intensity and satellite context also rose. The model has produced decision support, not a confirmed disaster declaration.</p>{[['Water level','42%'],['Rainfall','31%'],['Humidity','18%'],['Satellite signal','27%']].map(([x,n])=><div className="evidence-line" key={x}><span>{x}</span><i style={{width:n}}/><b>+{n}</b></div>)}<h3>Recommended response</h3><p className="body-copy">Verify field conditions, contact the assigned district authority, and monitor downstream nodes before issuing a public instruction.</p></div><aside className="data-panel action-panel"><h3>Alert controls</h3>{['ACKNOWLEDGE','ESCALATE','ASSIGN','RESOLVE'].map((x,i)=><button className={i===1?'danger':''} key={x}>{x}<ArrowRight size={14}/></button>)}<small>All actions are recorded in the audit trail.</small></aside></div></OperationsShell>
+}
+
+function LoginPage() {
+    const [submitted, setSubmitted] = useState(false)
+    return <main className="auth-page"><section className="auth-story"><Logo/><span className="eyebrow"><i/> SECURE OPERATIONS ACCESS</span><h1>Environmental intelligence for people who act.</h1><p>Sign in to the protected EARTH-NET command center. Access is intended for approved authorities, researchers and field operators.</p><div><ShieldCheck/><span><b>Role-based access</b><small>MFA and audit-ready session controls</small></span></div></section><form className="auth-card" onSubmit={e=>{e.preventDefault();setSubmitted(true)}}><span>EARTH-NET / IDENTITY</span><h2>{submitted?'Access request received':'Welcome back'}</h2>{submitted?<><CheckCircle size={42}/><p>This demonstration does not authenticate real accounts. Your submitted credentials were not stored.</p><a className="button" href="/dashboard">Enter demo workspace</a></>:<><p>Use your organization-issued credentials.</p><label>Email address<input required type="email" autoComplete="email" placeholder="operator@authority.gov"/></label><label>Password<input required type="password" autoComplete="current-password" placeholder="••••••••••••"/></label><div className="auth-options"><label><input type="checkbox"/> Remember me</label><a href="/forgot-password">Forgot password?</a></div><button className="button" type="submit">Sign in securely <ArrowRight size={16}/></button><small>Need approved access? <a href="/contact">Contact an administrator</a></small></>}</form></main>
+}
+
+function AdminPage() {
+    return <main className="admin-page"><header><Logo/><div><span>ADMINISTRATION / CONTROL SYSTEM</span><b>SUPER ADMIN · DEMO</b></div></header><div className="admin-layout"><aside>{['Overview','Users','Roles & permissions','Devices','Firmware','AI models','Thresholds','Platform settings','Audit logs','Security events'].map((x,i)=><button className={i===0?'active':''} key={x}>{x}</button>)}</aside><section><span className="eyebrow"><i/> GOVERNED CONTROL PLANE</span><h1>Administration overview</h1><div className="simulation-notice"><Lock size={15}/>Administrative controls are isolated from the operational workspace. This is a non-persistent demonstration.</div><MetricStrip items={[["USERS","84","7 roles"],["NODES","1,248","23 attention"],["GATEWAYS","42","2 degraded"],["SECURITY EVENTS","03","under review"]]}/><div className="admin-grid">{[['Identity & access','Review users, authority membership, roles and active sessions.'],['Device control','Manage registration, firmware cohorts and controlled OTA rollout.'],['AI governance','Review models, validation evidence and protected risk thresholds.'],['Audit & security','Inspect immutable action records and authorization failures.']].map(([h,p])=><article key={h}><ShieldCheck/><h3>{h}</h3><p>{p}</p><button>Open control <ArrowRight size={14}/></button></article>)}</div></section></div></main>
+}
+
+function ProfilePage() {
+    return <OperationsShell title="My profile" eyebrow="ACCOUNT / IDENTITY"><div className="profile-grid"><section className="data-panel profile-card"><div className="avatar">AO</div><h2>Ananya Rao</h2><p>Regional Operations Officer</p><span className="state online">VERIFIED ACCOUNT</span><dl><div><dt>Organization</dt><dd>Demo Disaster Authority</dd></div><div><dt>Role</dt><dd>AUTHORITY</dd></div><div><dt>Primary region</dt><dd>West Bengal</dd></div><div><dt>Member since</dt><dd>June 2026</dd></div></dl></section><section className="data-panel profile-form"><h3>Profile information</h3><label>Full name<input value="Ananya Rao" readOnly/></label><label>Work email<input value="ananya.rao@example.gov" readOnly/></label><label>Organization<input value="Demo Disaster Authority" readOnly/></label><label>Operational region<select defaultValue="West Bengal"><option>West Bengal</option><option>Assam</option><option>Uttarakhand</option><option>Kerala</option></select></label><button className="button">Save changes</button><small>Demo profile changes are not persisted.</small></section></div></OperationsShell>
+}
+
 // ============= NOT FOUND =============
 function NotFound() {
     return (
@@ -1225,19 +1331,26 @@ function App() {
         }
     }, [navigate])
 
-    const path = pathname.split('/')[1] || 'home'
+    const parts = pathname.split('/').filter(Boolean)
+    const path = parts[0] || 'home'
 
     let body
     if (path === 'home') body = <Home setScenario={setScenario} navigate={navigate} />
-    else if (path === 'dashboard') body = <Dashboard scenario={scenario} setScenario={setScenario} />
+    else if (path === 'dashboard' && !parts[1]) body = <Dashboard scenario={scenario} setScenario={setScenario} />
+    else if (path === 'dashboard') body = <OperationalPage section={parts[1]} id={parts[2]} />
+    else if (path === 'login') body = <LoginPage />
+    else if (path === 'account' && parts[1] === 'profile') body = <ProfilePage />
+    else if (path === 'admin') body = <AdminPage />
     else if (pageDetails[path] || path === 'contact') body = <GenericPage page={path} />
     else body = <NotFound />
 
+    const immersive = path === 'dashboard' || path === 'admin' || path === 'account' || path === 'login'
+
     return (
         <>
-            <Navbar key={pathname} />
+            {!immersive && <Navbar key={pathname} />}
             {body}
-            <Footer />
+            {!immersive && <Footer />}
             <Analytics />
         </>
     )
