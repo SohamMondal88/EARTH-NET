@@ -1,2 +1,3 @@
 
+
 .india-map{isolation:isolate}.india-map:after{content:'';position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(34,211,238,.12),transparent 18%);animation:radar 7s linear infinite;pointer-events:none}
