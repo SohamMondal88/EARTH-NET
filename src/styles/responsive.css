@@ -1,3 +1,28 @@
+/*
+ * Responsive layout layer
+ * This shared layer gives every page the same fluid, overflow-safe foundation
+ * while component styles continue to own their visual treatment.
+ */
+:where(main, section, article, aside, header, footer, nav, div) {
+  min-width: 0;
+}
+
+:where(img, video, canvas, svg) {
+  max-width: 100%;
+}
+
+:where(input, select, textarea, button) {
+  max-width: 100%;
+}
+
+.section,
+.generic,
+.hero {
+  width: min(100%, var(--container));
+  margin-inline: auto;
+  padding-inline: clamp(20px, 4vw, 36px);
+}
+
 /* Large displays */
 @media (min-width: 1600px) {
   .hero {
@@ -79,6 +104,30 @@
   }
 }
 
+/* Compact laptops and landscape tablets */
+@media (max-width: 1050px) {
+  .nav-status {
+    display: none;
+  }
+
+  .nav nav {
+    gap: clamp(10px, 1.4vw, 18px);
+  }
+
+  .nav nav a {
+    font-size: 10px;
+  }
+
+  .dash-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fusion,
+  .hardware {
+    gap: clamp(32px, 5vw, 56px);
+  }
+}
+
 /* Tablet */
 @media (max-width: 900px) {
   .nav {
@@ -107,6 +156,9 @@
     box-shadow: var(--shadow-panel);
     backdrop-filter: blur(12px);
     z-index: 30;
+    max-height: calc(100dvh - 86px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .mobile-nav a:not(.button) {
@@ -273,6 +325,12 @@
   .page-callout p {
     font-size: 12px;
   }
+
+  .section,
+  .generic,
+  .hero {
+    padding-inline: clamp(20px, 4vw, 28px);
+  }
 }
 
 /* Phone */
@@ -299,6 +357,7 @@
     top: 62px;
     left: 10px;
     right: 10px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
   }
 
   .hero {
@@ -315,6 +374,14 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     padding: 12px 0;
+  }
+
+  .hero-stats > *,
+  .dash-metrics > *,
+  .page-facts > *,
+  .node-status > * {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .hero-stats span {
@@ -368,8 +435,9 @@
 
   .section-title h2,
   .generic h2 {
-    font-size: 30px;
+    font-size: clamp(1.75rem, 9vw, 2.15rem);
     letter-spacing: -1.6px;
+    overflow-wrap: anywhere;
   }
 
   .section-title p {
@@ -461,6 +529,11 @@
   .route {
     gap: 7px;
     margin-inline: -12px;
+  }
+
+  .route > div {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .route > i {
@@ -577,6 +650,9 @@
     margin-inline: -13px;
     padding-inline: 13px;
     gap: 6px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
   }
 
   .simbar span {
@@ -586,6 +662,7 @@
   .simbar button {
     padding: 6px 10px;
     font-size: 7px;
+    flex: 0 0 auto;
   }
 
   .page-hero {
@@ -654,6 +731,66 @@
   footer small {
     text-align: left;
   }
+
+  .button {
+    min-height: 44px;
+  }
+
+  .menu {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    margin-left: auto;
+  }
+
+  .table-scroll {
+    margin-inline: -13px;
+    padding-inline: 13px;
+    scrollbar-gutter: stable;
+  }
+}
+
+/* Narrow phones: preserve readable controls without horizontal clipping. */
+@media (max-width: 480px) {
+  .section,
+  .generic {
+    padding-inline: 16px;
+  }
+
+  .hero {
+    padding-inline: 16px;
+  }
+
+  .layers,
+  .dash-metrics,
+  .node-status {
+    grid-template-columns: 1fr;
+  }
+
+  .layer {
+    min-height: auto;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--line-light) !important;
+  }
+
+  .layer:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .node-status div {
+    grid-column: auto;
+  }
+
+  .fusion-chart p {
+    grid-template-columns: minmax(78px, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  .page-callout .button,
+  .contact-form .button {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* Small phones */
@@ -705,5 +842,22 @@
 
   .node-status b {
     font-size: 11px;
+  }
+}
+
+/* Short landscape screens still need a usable menu and hero. */
+@media (max-height: 520px) and (orientation: landscape) {
+  .mobile-nav {
+    max-height: calc(100dvh - var(--nav-height-mobile));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .mobile-nav .button {
+    grid-column: 1 / -1;
+  }
+
+  .hero {
+    min-height: auto;
+    padding-block: 40px;
   }
 }
