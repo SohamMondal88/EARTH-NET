@@ -123,6 +123,56 @@
   min-width: 0;
 }
 
+.dashboard-context {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -10px 0 14px;
+  padding: 9px 12px;
+  border: 1px solid rgba(34, 211, 238, 0.12);
+  border-radius: var(--radius-sm);
+  background: rgba(34, 211, 238, 0.035);
+  color: var(--text-400);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dashboard-context span { display: flex; align-items: center; gap: 7px; color: var(--cyan-300); font-weight: 700; }
+.dashboard-context small { color: var(--text-500); }
+
+.evidence-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(2, 8, 16, .82);
+  backdrop-filter: blur(12px);
+  animation: fade-up .2s ease both;
+}
+
+.evidence-modal {
+  position: relative;
+  width: min(620px, 100%);
+  padding: clamp(24px, 5vw, 42px);
+  border: 1px solid rgba(34, 211, 238, .24);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, rgba(19, 38, 58, .98), rgba(7, 17, 31, .99));
+  box-shadow: 0 32px 100px rgba(0,0,0,.55), 0 0 60px rgba(34,211,238,.08);
+}
+
+.evidence-modal h2 { margin: 16px 0 8px; font: 600 clamp(28px, 5vw, 42px) var(--font-display); }
+.evidence-modal > p { color: var(--text-400); line-height: 1.7; }
+.modal-close { position: absolute; top: 18px; right: 18px; display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.03); color: var(--text-300); cursor: pointer; }
+.evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0; }
+.evidence-grid div { padding: 17px; border: 1px solid var(--line-light); border-radius: var(--radius-sm); background: rgba(255,255,255,.02); }
+.evidence-grid span, .evidence-grid small { display: block; color: var(--text-500); font-size: 9px; letter-spacing: .08em; }
+.evidence-grid b { display: block; margin: 5px 0; color: var(--cyan-200); font: 600 25px var(--font-display); }
+.evidence-note { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; padding: 12px; border-left: 2px solid var(--warning-400); background: rgba(245,158,11,.05); color: var(--text-400); font-size: 11px; line-height: 1.5; }
+
 .dash-head {
   display: flex;
   justify-content: space-between;
