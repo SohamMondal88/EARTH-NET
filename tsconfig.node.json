@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "composite": true,
-    "noEmit": true,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "outDir": "node_modules/.cache/earth-net-ts",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true

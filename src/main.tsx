@@ -8,10 +8,9 @@ import {
     Menu, Network, Radio, Satellite, ShieldCheck, Signal, Sparkles, Waves,
     Wind, X, Zap, Server, Wifi, Thermometer, Droplets, Gauge as GaugeIcon,
     MapPin, Eye, Clock, RefreshCw, CheckCircle, AlertCircle, TrendingUp,
-    BarChart3, LineChart, Layers, HardDrive, Database, Globe, Lock,
+    BarChart3, LineChart, Layers, HardDrive, Database, Globe as GlobeIcon, Lock,
     Users, Award, Star, Target, Zap as ZapIcon, Compass, Navigation
 } from 'lucide-react'
-import { Analytics } from '@vercel/analytics/react'
 import './styles.css'
 
 // ============= TYPES =============
@@ -153,7 +152,7 @@ const Icon = memo(({ name }: { name: string }) => {
         Wind, Waves, Flame, Activity, Network, Signal, Atom, Server, Wifi,
         Thermometer, Droplets, GaugeIcon, MapPin, Eye, Clock, RefreshCw,
         CheckCircle, AlertCircle, TrendingUp, BarChart3, LineChart, Layers,
-        HardDrive, Database, Globe, Lock, Users, Award, Star, Target,
+        HardDrive, Database, Globe: GlobeIcon, Lock, Users, Award, Star, Target,
         ZapIcon, Compass, Navigation
     }
     const IconComponent = iconMap[name] || CircleDot
@@ -197,13 +196,14 @@ const Navbar = memo(() => {
     const [open, setOpen] = useState(false)
     const scrolled = useScrollPosition()
     const time = useLiveTime()
+    const currentPath = window.location.pathname
 
     return (
         <header className={`nav ${scrolled ? 'scrolled' : ''}`}>
             <Logo />
             <nav aria-label="Primary navigation">
                 {nav.map(([x, u]) => (
-                    <a key={x} href={u} className={x === 'Dashboard' ? 'nav-highlight' : ''}>
+                    <a key={x} href={u} aria-current={currentPath === u ? 'page' : undefined} className={currentPath === u ? 'nav-highlight' : ''}>
                         {x}
                     </a>
                 ))}
@@ -361,7 +361,7 @@ const ParticleBackground = memo(() => {
 })
 
 // ============= HOME PAGE =============
-function Home({ setScenario }: { setScenario: (s: Scenario) => void }) {
+function Home({ setScenario, navigate }: { setScenario: (s: Scenario) => void; navigate: (path: string) => void }) {
     const layers = [
         ['Satellite', 'SPACE', 'Satellite observations and environmental context · real-time imagery'],
         ['Radio', 'GROUND', 'Distributed IoT sensor network · 10,000+ field nodes'],
@@ -432,7 +432,7 @@ function Home({ setScenario }: { setScenario: (s: Scenario) => void }) {
                     <div key={x}>
                         <span>0{i + 1}</span>
                         {x}
-                        <div className="impact-bar" style={{ width: `${60 + Math.random() * 35}%` }} />
+                        <div className="impact-bar" style={{ width: `${[82, 74, 91, 68, 78, 95][i]}%` }} />
                     </div>
                 ))}
             </section>
@@ -650,7 +650,7 @@ function Home({ setScenario }: { setScenario: (s: Scenario) => void }) {
                 </div>
                 <div className="sim-buttons">
                     {(['flood', 'fire', 'pollution', 'seismic', 'drought', 'cyclone'] as Scenario[]).map(s => (
-                        <button key={s} onClick={() => { setScenario(s); window.location.href = '/dashboard' }}>
+                        <button key={s} onClick={() => { setScenario(s); navigate('/dashboard') }}>
                             <span>SIMULATE</span>
                             {s === 'seismic' ? 'SEISMIC ANOMALY' :
                              s === 'drought' ? 'DROUGHT WARNING' :
@@ -687,7 +687,7 @@ function Home({ setScenario }: { setScenario: (s: Scenario) => void }) {
 function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario: (s: Scenario) => void }) {
     const d = scenarioInfo[scenario]
     const time = useLiveTime()
-    const [alerts, setAlerts] = useState<Alert[]>([
+    const [alerts] = useState<Alert[]>([
         {
             id: '1',
             type: 'flood',
@@ -719,6 +719,9 @@ function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario:
             verified: false
         }
     ])
+    const [activePanel, setActivePanel] = useState('Overview')
+    const [showEvidence, setShowEvidence] = useState(false)
+    const [lastSync, setLastSync] = useState('Just now')
 
     const sensors: SensorReading[] = [
         { id: '1', name: 'Water Level', value: parseFloat(d.water), unit: 'm', status: 'normal', trend: 'up', history: [2.1, 2.3, 2.5, 2.8, 3.0, 3.28] },
@@ -735,7 +738,10 @@ function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario:
                 <Logo />
                 <p>LIVE INTELLIGENCE</p>
                 {['Overview', 'Live Map', 'Sensor Network', 'Flood Intelligence', 'Fire Intelligence', 'Air Quality', 'Seismic Monitoring', 'AI Predictions', 'Alerts', 'Historical Data', 'System Health'].map((x, i) => (
-                    <button className={i === 0 ? 'active' : ''} key={x}>
+                    <button className={activePanel === x ? 'active' : ''} key={x} onClick={() => {
+                        setActivePanel(x)
+                        document.getElementById('intelligence-view')?.scrollIntoView({ behavior: 'smooth' })
+                    }}>
                         <CircleDot size={15} />
                         {x}
                         {i === 8 && <span className="badge">{alerts.length}</span>}
@@ -749,7 +755,7 @@ function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario:
                 </div>
             </aside>
 
-            <section className="dash-content">
+            <section className="dash-content" id="intelligence-view">
                 <header className="dash-head">
                     <div>
                         <span className="eyebrow"><i /> DEMO DATA / LIVE SIMULATION · {time}</span>
@@ -758,19 +764,25 @@ function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario:
                     <div className="scenario">
                         <span>{d.label}</span>
                         <b className={d.color}>{d.risk}</b>
-                        <button className="refresh-btn" onClick={() => setScenario(scenario)}>
+                        <button className="refresh-btn" title="Refresh telemetry" aria-label="Refresh telemetry" onClick={() => {
+                            setLastSync(new Date().toLocaleTimeString('en-US', { hour12: false }))
+                        }}>
                             <RefreshCw size={14} />
                         </button>
                     </div>
                 </header>
 
+                <div className="dashboard-context" role="status">
+                    <span><Layers size={14} /> {activePanel}</span>
+                    <small>Last synchronized: {lastSync}</small>
+                </div>
                 <div className="dash-metrics">
-                    {[
+                    {([
                         ['1,248', 'ACTIVE NODES', Network, '98.7%'],
                         [d.signals, 'ACTIVE SIGNALS', Activity, '↑ 12 new'],
                         [scenario === 'baseline' ? '06' : '07', 'HIGH-RISK EVENTS', AlertTriangle, '3 active'],
                         ['98.7%', 'NETWORK HEALTH', Gauge, '● stable']
-                    ].map(([n, l, I, sub]) => (
+                    ] as [string, string, React.ComponentType, string][]).map(([n, l, I, sub]) => (
                         <article key={l}>
                             <I />
                             <b>{n}</b>
@@ -824,7 +836,7 @@ function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario:
                             <div><dt>STATUS</dt><dd>UNDER VERIFICATION</dd></div>
                             <div><dt>TIMESTAMP</dt><dd>{time}</dd></div>
                         </dl>
-                        <button className="detail">View evidence <ArrowRight size={15} /></button>
+                        <button className="detail" onClick={() => setShowEvidence(true)}>View evidence <ArrowRight size={15} /></button>
                     </article>
 
                     <article className="trend-card">
@@ -891,6 +903,24 @@ function Dashboard({ scenario, setScenario }: { scenario: Scenario; setScenario:
                         </button>
                     ))}
                 </div>
+                {showEvidence && (
+                    <div className="evidence-backdrop" role="presentation" onMouseDown={() => setShowEvidence(false)}>
+                        <section className="evidence-modal" role="dialog" aria-modal="true" aria-labelledby="evidence-title" onMouseDown={event => event.stopPropagation()}>
+                            <button className="modal-close" aria-label="Close evidence" onClick={() => setShowEvidence(false)}><X /></button>
+                            <span className="eyebrow"><i /> VERIFIED SENSOR FUSION</span>
+                            <h2 id="evidence-title">Evidence trace</h2>
+                            <p>{d.event}</p>
+                            <div className="evidence-grid">
+                                <div><span>CONFIDENCE</span><b>{d.confidence}</b><small>Cross-model consensus</small></div>
+                                <div><span>SENSOR SIGNALS</span><b>{d.signals}</b><small>Multi-source observations</small></div>
+                                <div><span>WATER LEVEL</span><b>{d.water}</b><small>Node A17 telemetry</small></div>
+                                <div><span>AIR QUALITY</span><b>{d.airQuality}</b><small>Regional composite</small></div>
+                            </div>
+                            <div className="evidence-note"><ShieldCheck size={18} /> Decision support only. Field verification is required before response action.</div>
+                            <button className="button" onClick={() => setShowEvidence(false)}>Acknowledge evidence <CheckCircle size={16} /></button>
+                        </section>
+                    </div>
+                )}
             </section>
         </main>
     )
@@ -1007,6 +1037,29 @@ const pageDetails: Record<string, PageDetail> = {
 
 function GenericPage({ page }: { page: string }) {
     if (page === 'contact') {
+        const ContactForm = () => {
+            const [submitted, setSubmitted] = useState(false)
+            return submitted ? (
+                <section className="contact-success" role="status">
+                    <CheckCircle size={42} />
+                    <h2>Message received.</h2>
+                    <p>Your inquiry has been added to our project queue. The EARTH-NET team will follow up using the email provided.</p>
+                    <button className="button secondary" onClick={() => setSubmitted(false)}>Send another message</button>
+                </section>
+            ) : (
+                <form className="contact-form" onSubmit={(event: React.FormEvent) => {
+                    event.preventDefault()
+                    setSubmitted(true)
+                }}>
+                    {['Name', 'Organization', 'Email'].map(label => (
+                        <label key={label}>{label}<input required autoComplete={label === 'Email' ? 'email' : label === 'Name' ? 'name' : 'organization'} type={label === 'Email' ? 'email' : 'text'} placeholder={label === 'Email' ? 'you@organization.com' : `Your ${label.toLowerCase()}`} /></label>
+                    ))}
+                    <label>Interest<select aria-label="Interest"><option>Project inquiry</option><option>Collaboration</option><option>Research</option><option>Pilot deployment</option><option>Partnership</option></select></label>
+                    <label className="full">Message<textarea required minLength={20} rows={5} placeholder="Tell us about your project, region, or research goals…" /></label>
+                    <button className="button">Connect With EARTH-NET <ArrowRight size={16} /></button>
+                </form>
+            )
+        }
         return (
             <main className="generic contact-page">
                 <SectionTitle
@@ -1014,32 +1067,7 @@ function GenericPage({ page }: { page: string }) {
                     title="Build a safer tomorrow with us."
                     copy="For project inquiry, collaboration, research, pilot deployment or partnership."
                 />
-                <form className="contact-form" onSubmit={(event: React.FormEvent) => {
-                    event.preventDefault()
-                    alert('Thank you. Your inquiry has been recorded. Our team will reach out within 24 hours.')
-                }}>
-                    {['Name', 'Organization', 'Email'].map(label => (
-                        <label key={label}>
-                            {label}
-                            <input required type={label === 'Email' ? 'email' : 'text'} aria-label={label} />
-                        </label>
-                    ))}
-                    <label>
-                        Interest
-                        <select aria-label="Interest">
-                            <option>Project inquiry</option>
-                            <option>Collaboration</option>
-                            <option>Research</option>
-                            <option>Pilot deployment</option>
-                            <option>Partnership</option>
-                        </select>
-                    </label>
-                    <label className="full">
-                        Message
-                        <textarea required rows={5} aria-label="Message" />
-                    </label>
-                    <button className="button">Connect With EARTH-NET <ArrowRight size={16} /></button>
-                </form>
+                <ContactForm />
             </main>
         )
     }
@@ -1170,17 +1198,44 @@ const Footer = memo(() => (
 // ============= APP =============
 function App() {
     const [scenario, setScenario] = useState<Scenario>('baseline')
-    const path = location.pathname.split('/')[1] || 'home'
+    const [pathname, setPathname] = useState(location.pathname)
+    const navigate = useCallback((url: string) => {
+        const next = new URL(url, location.origin)
+        if (next.pathname === location.pathname && next.search === location.search && next.hash === location.hash) return
+        history.pushState({}, '', url)
+        setPathname(next.pathname)
+        if (next.hash) setTimeout(() => document.querySelector(next.hash)?.scrollIntoView({ behavior: 'smooth' }), 0)
+        else window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [])
+
+    useEffect(() => {
+        const onPopState = () => setPathname(location.pathname)
+        const onClick = (event: MouseEvent) => {
+            const anchor = (event.target as HTMLElement).closest('a')
+            if (!anchor || anchor.target || event.metaKey || event.ctrlKey || event.shiftKey || anchor.origin !== location.origin) return
+            if (anchor.hash && anchor.pathname === location.pathname) return
+            event.preventDefault()
+            navigate(anchor.pathname + anchor.search + anchor.hash)
+        }
+        window.addEventListener('popstate', onPopState)
+        document.addEventListener('click', onClick)
+        return () => {
+            window.removeEventListener('popstate', onPopState)
+            document.removeEventListener('click', onClick)
+        }
+    }, [navigate])
+
+    const path = pathname.split('/')[1] || 'home'
 
     let body
-    if (path === 'home') body = <Home setScenario={setScenario} />
+    if (path === 'home') body = <Home setScenario={setScenario} navigate={navigate} />
     else if (path === 'dashboard') body = <Dashboard scenario={scenario} setScenario={setScenario} />
     else if (pageDetails[path] || path === 'contact') body = <GenericPage page={path} />
     else body = <NotFound />
 
     return (
         <>
-            <Navbar />
+            <Navbar key={pathname} />
             {body}
             <Footer />
             <Analytics />
